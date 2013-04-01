@@ -118,7 +118,10 @@ namespace :scrape do
 
     DAYS_IDS.each_key do |days|
       ROUTE_PER_BRANCH.each do |branch, route|
-        File.open(File.join(DATA_PATH, "sched__#{branch}__#{days}.csv"), 'a') do |f|
+        path = File.join(DATA_PATH, "schedule", branch.to_s)
+        FileUtils.mkdir_p(path)
+
+        File.open(File.join(path, "#{days}.csv"), 'a') do |f|
           route.each_slice(2) do |a, b|
             table = download_table(a, b, days)
             f.puts [Date.today.to_s, table.inspect].join(',')
