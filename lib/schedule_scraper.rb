@@ -24,7 +24,7 @@ class ScheduleScraper < Scraper
   def run
     DAYS_IDS.each_key do |days|
       ROUTE_PER_BRANCH.each do |branch, route|
-        p = path(branch, days)
+        p = self.class.path(branch, Date.today, days)
         FileUtils.mkdir_p(File.dirname(p))
 
         File.open(p, 'w') do |f|
@@ -42,12 +42,12 @@ class ScheduleScraper < Scraper
     end
   end
 
-
-private
-  def path(branch, days)
-    File.join(DATA_PATH, "schedule", branch.to_s, "#{Date.today.strftime("%Y-%m")}-#{days}.csv")
+  def self.path(branch, date, days)
+    File.join(DATA_PATH, "schedule", branch.to_s, "#{date.strftime("%Y-%m")}-#{days}.csv")
   end
 
+
+private
   def download_table(origin, destination, days)
     table = nil
     params = {
@@ -73,9 +73,9 @@ private
 
   def parse_table(doc)
     doc.css("table tr td")
-    .map { |td| td.text.strip }
-    .select { |text| text =~ HOUR_RE }
-    .each_slice(2)
-    .to_a
+       .map { |td| td.text.strip }
+       .select { |text| text =~ HOUR_RE }
+       .each_slice(2)
+       .to_a
   end
 end

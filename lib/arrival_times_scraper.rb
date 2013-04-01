@@ -23,7 +23,7 @@ class ArrivalTimesScraper < Scraper
 
   def run
     times_per_branch.each do |branch, times|
-      p = path(branch)
+      p = self.class.path(branch, Date.today)
       FileUtils.mkdir_p(File.dirname(p))
       File.open(p, 'a') do |f|
         f.puts [Time.now.to_i, times].join(',')
@@ -39,12 +39,12 @@ class ArrivalTimesScraper < Scraper
     end
   end
 
-
-private
-  def path(branch)
-    File.join(DATA_PATH, "times", branch.to_s, "#{Date.today.strftime("%Y-%m")}.csv")
+  def self.path(branch, date)
+    File.join(DATA_PATH, "times", branch.to_s, "#{date.strftime("%Y-%m")}.csv")
   end
 
+
+private
   def random_string
     str = ''
     16.times { |i| str << CHARS[rand(CHARS.size)] }
