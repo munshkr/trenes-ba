@@ -12,7 +12,7 @@ class ScheduleScraper < Scraper
   }
 
   ROUTE_PER_BRANCH = {
-    sarmiento:      %w{ },    # TODO
+    sarmiento:      %w{ O CB F FT VL LS CD RM HD M CL Y PA RO PR MO },
     mitre_tigre:    %w{ RN LT BC NZ RV VZ OL LL N AS SW BE Z VY FB CU T },
     mitre_mitre:    %w{ RN TF MZ AL NR CI DR BJ FD CG BM },
     mitre_jlsuarez: %w{ RN TF MZ AL NR DD UZ PY MG SM SA MA BL CH JL },
