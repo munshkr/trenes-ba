@@ -1,6 +1,6 @@
 set :output, "log/cron.log"
 
-every 2.minutes do
+every 1.minutes do
   rake "scrape:arrival_times"
 end
 
