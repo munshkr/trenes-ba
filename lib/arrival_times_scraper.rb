@@ -22,11 +22,11 @@ class ArrivalTimesScraper < Scraper
 
 
   def run
-    times_per_branch.each do |branch, times|
+    times_per_branch.each do |branch, (time, data)|
       p = self.class.path(branch, Date.today)
       FileUtils.mkdir_p(File.dirname(p))
       File.open(p, 'a') do |f|
-        f.puts [Time.now.to_i, times].join(',')
+        f.puts [time.to_i, data].join(',')
       end
     end
   end
@@ -61,15 +61,21 @@ private
   end
 
   def download_times(branch)
-    times = nil
+    data = nil
+    time = nil
+
     cl = HTTPClient.new
+
     RETRIES.times do |i|
       res = cl.get(url(branch), HEADERS)
       sleep 0.3
-      times = res.body
-      break if not times.size.zero?
+
+      time = Time.parse(res.headers["Date"])
+      data = res.body
+      break if not data.size.zero?
       sleep 1
     end
-    times
+
+    [time, data]
   end
 end
