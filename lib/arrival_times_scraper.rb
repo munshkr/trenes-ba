@@ -11,7 +11,7 @@ class ArrivalTimesScraper < Scraper
   }
   KEY = "v%23v%23QTUtWp%23MpWRy80Q0knTE10I30kj%23JNyZ"
   CHARS = ('0'..'9').to_a + ('A'..'Z').to_a + ('a'..'z').to_a
-  RETRIES = 3
+  RETRIES = 10
 
   BRANCH_IDS = {
     sarmiento: 1,
