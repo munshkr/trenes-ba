@@ -42,16 +42,11 @@ class ScheduleScraper < Scraper
                 a = route[-2]
               end
 
-              a_to_b = case way
-                when :departure then download_table(a, b, days)
-                when :return    then download_table(b, a, days)
-                else raise "Unknown way"
-              end
-
+              a_to_b = download_table(a, b, days)
               ta, tb = a_to_b.transpose
 
-              f.puts ta.join(",") if not only_save_b
-              f.puts tb.join(",")
+              f.puts [a, ta].join(",") if not only_save_b
+              f.puts [b, tb].join(",")
             end
           end
         end
