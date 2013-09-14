@@ -55,7 +55,7 @@ class ScheduleScraper < Scraper
   end
 
   def self.path(branch, date, days, way)
-    File.join(DATA_PATH, "schedule", branch.to_s, "#{date.strftime("%Y-%m")}-#{way}-#{days}.csv")
+    File.join(DATA_PATH, "schedule", branch.to_s, "#{date.strftime("%Y-%m-%d")}-#{way}-#{days}.csv")
   end
 
 
