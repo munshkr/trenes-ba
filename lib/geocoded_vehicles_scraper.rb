@@ -14,11 +14,11 @@ class GeocodedVehiclesScraper < Scraper
   RETRIES = 10
 
   BRANCH_PATHS = {
-    sarmiento: "mapa_sarmiento_.php",
-    mitre_tigre: "mitre/mapa_mitre_tigre.php",
-    mitre_mitre: "mitre/mapa_mitre_mitre.php",
+    sarmiento: "ajax_formaciones_sarmiento.php",
+    mitre_tigre: "mitre/ajax_formaciones_mitre_tigre.php",
+    mitre_mitre: "mitre/ajax_formaciones_mitre_mitre.php",
     mitre_jlsuarez: "mitre/ajax_formaciones_mitre_jlsuarez.php",
-    roca_laplata: "roca/mapa_laplata.php",
+    roca_laplata: "roca/ajax_formaciones_roca_laplata.php",
   }
 
 
