@@ -68,7 +68,12 @@ private
     cl = HTTPClient.new
 
     RETRIES.times do |i|
-      res = cl.get(url(branch), HEADERS)
+      begin
+        res = cl.get(url(branch), HEADERS)
+      rescue StandardError => err
+        puts "#{Time.now.strftime("%F %T")} [#{self.class.name}/#{branch}] An HTTP error ocurred: #{err} (retry #{i})"
+        next
+      end
       sleep 0.3
 
       time = Time.parse(res.headers["Date"])
