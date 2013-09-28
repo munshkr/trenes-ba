@@ -28,7 +28,7 @@ class ScheduleScraper < Scraper
           p = self.class.path(branch, Date.today, days, way)
           FileUtils.mkdir_p(File.dirname(p))
 
-          File.open(p, 'w') do |f|
+          Bzip2::Writer.open(p, 'w') do |f|
             route = route.reverse if way == :return
 
             only_save_b = false
@@ -55,7 +55,7 @@ class ScheduleScraper < Scraper
   end
 
   def self.path(branch, date, days, way)
-    File.join(DATA_PATH, "schedule", branch.to_s, "#{date.strftime("%Y-%m-%d")}-#{way}-#{days}.csv")
+    File.join(DATA_PATH, "schedule", branch.to_s, "#{date.strftime("%Y-%m-%d")}-#{way}-#{days}.csv.bz2")
   end
 
 

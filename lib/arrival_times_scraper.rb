@@ -25,7 +25,7 @@ class ArrivalTimesScraper < Scraper
     times_per_branch.each do |branch, (time, data)|
       p = self.class.path(branch, Date.today)
       FileUtils.mkdir_p(File.dirname(p))
-      File.open(p, 'a') do |f|
+      Bzip2::Writer.open(p, 'a') do |f|
         f.puts [time.to_i, data].join(',')
       end
     end
@@ -40,7 +40,7 @@ class ArrivalTimesScraper < Scraper
   end
 
   def self.path(branch, date)
-    File.join(DATA_PATH, "times", branch.to_s, "#{date.strftime("%Y-%m")}.csv")
+    File.join(DATA_PATH, "times", branch.to_s, "#{date.strftime("%Y-%m")}.csv.bz2")
   end
 
 
